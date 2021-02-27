@@ -1,5 +1,5 @@
-import 'package:FTA/News/news.dart';
 import 'package:equatable/equatable.dart';
+import 'package:login/News/news.dart';
 
 abstract class NewsEvent extends Equatable {
   const NewsEvent();
@@ -13,39 +13,37 @@ class NewsLoad extends NewsEvent {
 }
 
 class NewsCreate extends NewsEvent {
-  final News News;
+  final News course;
 
-  const NewsCreate(this.News);
-
-  @override
-  List<Object> get props => [News];
+  const NewsCreate(this.course);
 
   @override
-  String toString() => 'News Created {News: $News}';
+  List<Object> get props => [course];
+
+  @override
+  String toString() => 'News Created {course: $course}';
 }
 
-class News {}
-
 class NewsUpdate extends NewsEvent {
-  final News News;
+  final News course;
 
-  const NewsUpdate(this.News);
-
-  @override
-  List<Object> get props => [News];
+  const NewsUpdate(this.course);
 
   @override
-  String toString() => 'News Updated {News: $News}';
+  List<Object> get props => [course];
+
+  @override
+  String toString() => 'News Updated {course: $course}';
 }
 
 class NewsDelete extends NewsEvent {
-  final News News;
+  final News course;
 
-  const NewsDelete(this.News);
-
-  @override
-  List<Object> get props => [News];
+  const NewsDelete(this.course);
 
   @override
-  toString() => 'News Deleted {News: $News}';
+  List<Object> get props => [course];
+
+  @override
+  toString() => 'News Deleted {course: $course}';
 }

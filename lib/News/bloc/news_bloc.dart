@@ -1,16 +1,14 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'package:FTA/News/Bloc/bloc.dart';
-import 'package:FTA/News/News.dart';
-import 'package:FTA/News/Repository/news_repository.dart';
-
-import 'news_event.dart';
+import 'package:login/News/bloc/bloc.dart';
+import 'package:login/News/news.dart';
+import 'package:login/News/repository/repository.dart';
 
 class NewsBloc extends Bloc<NewsEvent, NewsState> {
-  final NewsRepository NewsRepository;
+  final NewsRepository courseRepository;
 
-  NewsBloc({@required this.NewsRepository})
-      : assert(NewsRepository != null),
+  NewsBloc({@required this.courseRepository})
+      : assert(courseRepository != null),
         super(NewsLoading());
 
   @override
@@ -18,8 +16,8 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
     if (event is NewsLoad) {
       yield NewsLoading();
       try {
-        final Newss = await NewsRepository.getNewss();
-        yield NewssLoadSuccess(Newss);
+        final courses = await courseRepository.getNewss();
+        yield NewssLoadSuccess(courses);
       } catch (_) {
         yield NewsOperationFailure();
       }
@@ -27,9 +25,9 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
 
     if (event is NewsCreate) {
       try {
-        await NewsRepository.createNews(event.News);
-        final Newss = await NewsRepository.getNewss();
-        yield NewssLoadSuccess(Newss);
+        await courseRepository.createNews(event.course);
+        final courses = await courseRepository.getNewss();
+        yield NewssLoadSuccess(courses);
       } catch (_) {
         yield NewsOperationFailure();
       }
@@ -37,9 +35,9 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
 
     if (event is NewsUpdate) {
       try {
-        await NewsRepository.updateNews(event.News);
-        final Newss = await NewsRepository.getNewss();
-        yield NewssLoadSuccess(Newss);
+        await courseRepository.updateNews(event.course);
+        final courses = await courseRepository.getNewss();
+        yield NewssLoadSuccess(courses);
       } catch (_) {
         yield NewsOperationFailure();
       }
@@ -47,9 +45,9 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
 
     if (event is NewsDelete) {
       try {
-        await NewsRepository.deleteNews(event.News.id);
-        final Newss = await NewsRepository.getNewss();
-        yield NewssLoadSuccess(Newss);
+        await courseRepository.deleteNews(event.course.id);
+        final courses = await courseRepository.getNewss();
+        yield NewssLoadSuccess(courses);
       } catch (_) {
         yield NewsOperationFailure();
       }
